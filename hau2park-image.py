@@ -3,6 +3,7 @@ import supervision as sv
 import cv2
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 api_key = os.getenv("API_KEY")
@@ -28,3 +29,6 @@ annotated_image = label_annotator.annotate(
     scene=annotated_image, detections=detections, labels=labels)
 
 sv.plot_image(image=annotated_image, size=(16, 16))
+
+with open("result.json", "w") as json_file:
+    json.dump(result, json_file, indent=4)
