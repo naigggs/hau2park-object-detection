@@ -12,16 +12,16 @@ rf = Roboflow(api_key=api_key)
 project = rf.workspace().project("parking-detection-jeremykevin")
 model = project.version(8).model
 
-result = model.predict("assets/images/parking-lot-4.png", confidence=40, overlap=30).json()
+result = model.predict("assets/images/parking-lot-5.png", confidence=40, overlap=30).json()
 
-labels = [item["class"] for item in result["predictions"]]
+labels = [f"{item['class']} ({item['confidence']:.2f})" for item in result["predictions"]]
 
 detections = sv.Detections.from_inference(result)
 
 label_annotator = sv.LabelAnnotator()
 bounding_box_annotator = sv.BoxAnnotator()
 
-image = cv2.imread("assets/images/parking-lot-4.png")
+image = cv2.imread("assets/images/parking-lot-5.png")
 
 annotated_image = bounding_box_annotator.annotate(
     scene=image, detections=detections)

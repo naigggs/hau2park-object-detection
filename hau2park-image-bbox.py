@@ -21,7 +21,8 @@ predefined_spaces = [
 
 result = model.predict("assets/images/parking-lot-1.jpg", confidence=40, overlap=30).json()
 
-labels = [item["class"] for item in result["predictions"]]
+labels = [f"{item['class']} ({item['confidence']:.2f})" for item in result["predictions"]]
+
 detections = sv.Detections.from_inference(result)
 
 for prediction in result["predictions"]:
