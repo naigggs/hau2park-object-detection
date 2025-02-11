@@ -6,16 +6,13 @@ import supervision as sv
 import numpy as np
 
 def load_model(api_key):
-    """Load Roboflow model for CPU processing."""
     rf = Roboflow(api_key=api_key)
     project = rf.workspace().project("parking-detection-nhv0o")
     return project.version(2).model
 
 def process_video(video_path, model):
-    """Process video with CPU-friendly optimizations."""
     cap = cv2.VideoCapture(video_path)
     
-    # CPU-efficient annotators
     label_annotator = sv.LabelAnnotator()
     bounding_box_annotator = sv.BoxAnnotator()
     
